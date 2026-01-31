@@ -3,6 +3,7 @@
 #include "Energy/Public/Component/TP_PickUpComponent.h"
 
 #include "Energy/Public/Character/EnergyCharacter.h"
+#include "Player/EnergyPlayerState.h"
 
 UTP_PickUpComponent::UTP_PickUpComponent()
 {
@@ -24,6 +25,13 @@ void UTP_PickUpComponent::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedCo
 	AEnergyCharacter* Character = Cast<AEnergyCharacter>(OtherActor);
 	if(Character != nullptr)
 	{
+		if (AEnergyPlayerState* PlayerState = Character->GetPlayerState<AEnergyPlayerState>())
+		{
+			if (PlayerState->bHoldWeapon)
+			{
+				return;
+			}
+		}
 		// Notify that the actor is being picked up
 		OnPickUp.Broadcast(Character);
 

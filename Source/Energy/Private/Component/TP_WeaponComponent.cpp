@@ -184,7 +184,7 @@ void UTP_WeaponComponent::DetachWeapon()
 	{
 		Character->RemoveInstanceComponent(this);
 	}
-
+	EndPlay(EEndPlayReason::Type::Destroyed);
 	// 清空角色引用
 	Character = nullptr;
 }

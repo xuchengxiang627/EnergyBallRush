@@ -36,6 +36,8 @@ public:
 	AActor* GetCombatTarget() { return CombatTarget;}
 	UFUNCTION(BlueprintCallable)
 	UAnimMontage* GetAttackMontage() { return AttackMontage;}
+	UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+	void MultiClientPlayAttackMontage();
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastHandleDeath();

@@ -45,6 +45,11 @@ void AEnemyBase::Die()
 	MulticastHandleDeath();
 }
 
+void AEnemyBase::MultiClientPlayAttackMontage_Implementation()
+{
+	PlayAnimMontage(AttackMontage);
+}
+
 void AEnemyBase::MulticastHandleDeath_Implementation()
 {
 	if (IsValid(DeathSound))

@@ -10,10 +10,13 @@
 #include "InputActionValue.h"
 #include "Component/TP_WeaponComponent.h"
 #include "Engine/LocalPlayer.h"
+#include "Game/EnergyGameMode.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/EnergyHUD.h"
 #include "Player/EnergyPlayerController.h"
 #include "Player/EnergyPlayerState.h"
+#include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -52,6 +55,10 @@ void AEnergyCharacter::InitialCharacter()
 		PS->SetHealth(PS->GetMaxHealth());
 		PS->SetDamageBonus(PS->GetBaseDamageBonus());
 	}
+
+	SetActorHiddenInGame(false);
+	SetActorEnableCollision(true);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::Type::QueryOnly);
 
 	if (AEnergyPlayerController* PC = Cast<AEnergyPlayerController>(GetController()))
 	{
@@ -183,17 +190,20 @@ void AEnergyCharacter::AddEnergyScore_Implementation(float InScore)
 
 void AEnergyCharacter::Die()
 {
-	if (UTP_WeaponComponent* CurrentWeapon = FindComponentByClass<UTP_WeaponComponent>())
+	bDeath = true;
+	if (AEnergyPlayerState* EnergyPlayerState = GetPlayerState<AEnergyPlayerState>())
 	{
-		CurrentWeapon->DetachWeapon();
-		if (AEnergyPlayerState* EnergyPlayerState = GetPlayerState<AEnergyPlayerState>())
-		{
-			EnergyPlayerState->SetHoldWeapon(false);
-			EnergyPlayerState->SetScore(EnergyPlayerState->GetEnergyScore() * 0.8f);
-			EnergyPlayerState->SetHealth(EnergyPlayerState->GetMaxHealth());
-		}
+		EnergyPlayerState->SetEnergyScore(EnergyPlayerState->GetEnergyScore() * 0.8f);
+		EnergyPlayerState->SetHealth(EnergyPlayerState->GetMaxHealth());
 	}
-	Destroy();
+
+	FTimerHandle ResTimerHandle;
+	GetWorldTimerManager().SetTimer(ResTimerHandle, this, &AEnergyCharacter::ResStart, 3.f, false);
+}
+
+void AEnergyCharacter::ResStart()
+{
+	bDeath = false;
 }
 
 void AEnergyCharacter::OnSpeedupEffect_Implementation(float NewSpeed, float Duration)
@@ -310,10 +320,11 @@ void AEnergyCharacter::SetBaseDamageBonus_Implementation(float NewBaseDamageBonu
 
 void AEnergyCharacter::AddHealth_Implementation(float InHealth)
 {
+	if (bDeath) return;
 	if (AEnergyPlayerState* EnergyPlayerState = GetPlayerState<AEnergyPlayerState>())
 	{
 		EnergyPlayerState->AddHealth(InHealth);
-		if (EnergyPlayerState->GetHealth() <=0)
+		if (EnergyPlayerState->GetHealth() <= 0)
 		{
 			Die();
 		}

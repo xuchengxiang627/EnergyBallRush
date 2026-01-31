@@ -102,6 +102,9 @@ public:
 	/** IActorEffectInterface */
 	void ResetSpeed();
 	void ResetDamageBonus();
+
+	void ResStart();
+	bool bDeath = false;
 };
 
 
