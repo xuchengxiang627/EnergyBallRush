@@ -50,21 +50,21 @@ public:
 	FOnHoldWeaponChangeDelegate OnHoldWeaponChange;
 
 	UFUNCTION()
-	void OnRep_Health(float NewHealth);
+	void OnRep_Health(float OldHealth);
 	UFUNCTION()
-	void OnRep_MaxHealth(float NewMaxHealth);
+	void OnRep_MaxHealth(float OldMaxHealth);
 	UFUNCTION()
-	void OnRep_DamageBonus(float NewDamageBonus);
+	void OnRep_DamageBonus(float OldDamageBonus);
 	UFUNCTION()
-	void OnRep_BaseDamageBonus(float NewBaseDamageBonus);
+	void OnRep_BaseDamageBonus(float OldBaseDamageBonus);
 	UFUNCTION()
-	void OnRep_BaseSpeed(float NewBaseSpeed);
+	void OnRep_BaseSpeed(float OldBaseSpeed);
 	UFUNCTION()
-	void OnRep_Speed(float NewSpeed);
+	void OnRep_Speed(float OldSpeed);
 	UFUNCTION()
-	void OnRep_EnergyScore(float NewScore);
+	void OnRep_EnergyScore(float OldScore);
 	UFUNCTION()
-	void OnRep_HoldWeapon(bool NewHoldWeapon);
+	void OnRep_HoldWeapon(bool OldHoldWeapon);
 
 
 	FORCEINLINE float GetHealth() const { return Health; }
