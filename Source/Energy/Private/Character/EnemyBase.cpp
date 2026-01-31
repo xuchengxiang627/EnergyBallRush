@@ -168,17 +168,17 @@ void AEnemyBase::GetLivePlayersWithRadius(const UObject* WorldContextObject, TAr
 }
 
 
-void AEnemyBase::OnRep_Health(float NewHealth)
+void AEnemyBase::OnRep_Health(float OldHealth)
 {
-	OnHealthChanged.Broadcast(NewHealth);
+	OnHealthChanged.Broadcast(Health);
 }
 
-void AEnemyBase::OnRep_MaxHealth(float NewMaxHealth)
+void AEnemyBase::OnRep_MaxHealth(float OldMaxHealth)
 {
-	OnMaxHealthChanged.Broadcast(NewMaxHealth);
+	OnMaxHealthChanged.Broadcast(MaxHealth);
 }
 
-void AEnemyBase::OnRep_Damage(float NewDamage)
+void AEnemyBase::OnRep_Damage(float OldDamage)
 {
 }
 

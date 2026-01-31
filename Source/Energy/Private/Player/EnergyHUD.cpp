@@ -26,6 +26,24 @@ void AEnergyHUD::InitOverlay(APlayerController* PC, APlayerState* PS)
 	OverlayWidget->AddToViewport();
 }
 
+void AEnergyHUD::CreateGameTimeWidget()
+{
+	UUserWidget* GameTimeWidget = CreateWidget<UUserWidget>(GetWorld(), GameTimeWidgetClass);
+	if (GameTimeWidget)
+	{
+		GameTimeWidget->AddToViewport();
+	}
+}
+
+void AEnergyHUD::CreateGameOverWidget()
+{
+	UUserWidget* GameOverWidget = CreateWidget<UUserWidget>(GetWorld(), GameOverWidgetClass);
+	if (GameOverWidget)
+	{
+		GameOverWidget->AddToViewport();
+	}
+}
+
 UOverlayWidgetController* AEnergyHUD::GetOverlayWidgetController(APlayerController* PC, APlayerState* PS)
 {
 	if (OverlayWidgetController == nullptr)

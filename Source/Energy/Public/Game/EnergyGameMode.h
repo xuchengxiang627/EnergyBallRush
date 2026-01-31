@@ -18,8 +18,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Gameplay")
 	bool bIsGameOver = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Gameplay")
-	float GameTime = 15.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Gameplay")
 	float GameRestartTime = 5.f;
 
 	virtual bool ShouldSpawnAtStartSpot(AController* Player) override;
@@ -32,13 +30,6 @@ public:
 	UFUNCTION(NetMulticast, Reliable)
 	void MultiClientCreateUI(TSubclassOf<class UUserWidget> WidgetClass);
 
-	// 游戏计时UI
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	TSubclassOf<class UUserWidget> GameTimeWidgetClass;
-
-	// 游戏结束UI
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	TSubclassOf<class UUserWidget> GameOverWidgetClass;
 	
 	// 复活相关
 	UFUNCTION(BlueprintCallable, Category = "Respawn")

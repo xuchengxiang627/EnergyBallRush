@@ -25,44 +25,44 @@ void AEnergyPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 }
 
 /** Replication */
-void AEnergyPlayerState::OnRep_Health(float NewHealth)
+void AEnergyPlayerState::OnRep_Health(float OldHealth)
 {
-	OnHealthChange.Broadcast(NewHealth);
+	OnHealthChange.Broadcast(Health);
 }
 
-void AEnergyPlayerState::OnRep_MaxHealth(float NewMaxHealth)
+void AEnergyPlayerState::OnRep_MaxHealth(float OldMaxHealth)
 {
-	OnMaxHealthChange.Broadcast(NewMaxHealth);
+	OnMaxHealthChange.Broadcast(MaxHealth);
 }
 
-void AEnergyPlayerState::OnRep_DamageBonus(float NewDamageBonus)
+void AEnergyPlayerState::OnRep_DamageBonus(float OldDamageBonus)
 {
-	OnDamageBonusChange.Broadcast(NewDamageBonus);
+	OnDamageBonusChange.Broadcast(DamageBonus);
 }
 
-void AEnergyPlayerState::OnRep_BaseDamageBonus(float NewBaseDamageBonus)
+void AEnergyPlayerState::OnRep_BaseDamageBonus(float OldBaseDamageBonus)
 {
-	OnBaseDamageBonusChange.Broadcast(NewBaseDamageBonus);
+	OnBaseDamageBonusChange.Broadcast(BaseDamageBonus);
 }
 
-void AEnergyPlayerState::OnRep_BaseSpeed(float NewBaseSpeed)
+void AEnergyPlayerState::OnRep_BaseSpeed(float OldBaseSpeed)
 {
-	OnBaseSpeedChange.Broadcast(NewBaseSpeed);
+	OnBaseSpeedChange.Broadcast(BaseSpeed);
 }
 
-void AEnergyPlayerState::OnRep_Speed(float NewSpeed)
+void AEnergyPlayerState::OnRep_Speed(float OldSpeed)
 {
-	OnSpeedChange.Broadcast(NewSpeed);
+	OnSpeedChange.Broadcast(Speed);
 }
 
-void AEnergyPlayerState::OnRep_EnergyScore(float NewScore)
+void AEnergyPlayerState::OnRep_EnergyScore(float OldScore)
 {
-	OnEnergyScoreChange.Broadcast(NewScore);
+	OnEnergyScoreChange.Broadcast(EnergyScore);
 }
 
-void AEnergyPlayerState::OnRep_HoldWeapon(bool NewHoldWeapon)
+void AEnergyPlayerState::OnRep_HoldWeapon(bool OldHoldWeapon)
 {
-	OnHoldWeaponChange.Broadcast(NewHoldWeapon);
+	OnHoldWeaponChange.Broadcast(bHoldWeapon);
 }
 
 /**---------------- Set -----------------------------------*/

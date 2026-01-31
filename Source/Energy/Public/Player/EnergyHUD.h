@@ -20,6 +20,14 @@ class ENERGY_API AEnergyHUD : public AHUD
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
+
+	// 游戏计时UI
+	UPROPERTY(EditAnywhere, Category="UI")
+	TSubclassOf<UUserWidget> GameTimeWidgetClass;
+
+	// 游戏结束UI
+	UPROPERTY(EditAnywhere, Category="UI")
+	TSubclassOf<UUserWidget> GameOverWidgetClass;
 public:
 	UPROPERTY()
 	TObjectPtr<UOverlayWidget> OverlayWidget;
@@ -27,6 +35,9 @@ public:
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
 
 	void InitOverlay(APlayerController* PC, APlayerState* PS);
+	void CreateGameTimeWidget();
+	UFUNCTION(BlueprintCallable)
+	void CreateGameOverWidget();
 
 	UOverlayWidgetController* GetOverlayWidgetController(APlayerController* PC, APlayerState* PS);
 };

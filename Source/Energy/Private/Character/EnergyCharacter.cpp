@@ -8,15 +8,12 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "Component/TP_WeaponComponent.h"
 #include "Engine/LocalPlayer.h"
-#include "Game/EnergyGameMode.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/EnergyHUD.h"
 #include "Player/EnergyPlayerController.h"
 #include "Player/EnergyPlayerState.h"
 #include "GameFramework/PlayerController.h"
-#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -65,6 +62,7 @@ void AEnergyCharacter::InitialCharacter()
 		if (AEnergyHUD* HUD = PC->GetHUD<AEnergyHUD>())
 		{
 			HUD->InitOverlay(PC, GetPlayerState());
+			HUD->CreateGameTimeWidget();
 		}
 	}
 }

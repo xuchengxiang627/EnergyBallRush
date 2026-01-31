@@ -4,10 +4,12 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Energy/Public/Character/EnergyCharacter.h"
+#include "Game/EnergyGameState.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/PlayerStart.h"
+#include "Player/EnergyHUD.h"
 
 AEnergyGameMode::AEnergyGameMode()
 	: Super()
@@ -26,7 +28,10 @@ bool AEnergyGameMode::ShouldSpawnAtStartSpot(AController* Player)
 void AEnergyGameMode::HandleMatchHasStarted()
 {
 	Super::HandleMatchHasStarted();
-	GetWorldTimerManager().SetTimer(GameTimeHandle, this, &AEnergyGameMode::GameOver, GameTime, false);
+	if (AEnergyGameState* EnergyGameState = GetGameState<AEnergyGameState>())
+	{
+		GetWorldTimerManager().SetTimer(GameTimeHandle, this, &AEnergyGameMode::GameOver, EnergyGameState->GetGameTime(), false);
+	}
 }
 
 void AEnergyGameMode::HandleMatchHasEnded()
@@ -37,12 +42,6 @@ void AEnergyGameMode::HandleMatchHasEnded()
 	for (AActor* Character : Characters)
 	{
 		Character->Destroy();
-	}
-	// 创建一个游戏结束的UI
-	UUserWidget* GameOverWidget = CreateWidget<UUserWidget>(GetWorld(), GameOverWidgetClass);
-	if (GameOverWidget)
-	{
-		GameOverWidget->AddToViewport();
 	}
 
 	FTimerHandle TimerHandle;

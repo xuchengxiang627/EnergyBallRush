@@ -109,9 +109,9 @@ private:
 	float Damage = 10.f;
 
 	UFUNCTION()
-	void OnRep_Health(float NewHealth);
+	void OnRep_Health(float OldHealth);
 	UFUNCTION()
-	void OnRep_MaxHealth(float NewMaxHealth);
+	void OnRep_MaxHealth(float OldMaxHealth);
 	UFUNCTION()
-	void OnRep_Damage(float NewDamage);
+	void OnRep_Damage(float OldDamage);
 };
